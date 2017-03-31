@@ -6,6 +6,19 @@ struct listNode{
 	struct listNode *next;
 };
 
+int middleElement(struct listNode *head){
+  struct listNode *slow, *fast;
+  slow = fast = head;
+  while(fast->next){
+    fast = fast->next;
+    if(!(fast->next))
+      return slow->data;
+    fast = fast->next;
+    slow = slow->next;
+  }
+  return slow->data;
+}
+
 int deleteNode(struct listNode **head, int position){
   struct listNode *current, *p, *q;
   int val;
@@ -66,10 +79,12 @@ int main()
   addNode(&head, 5, 1);
   addNode(&head, 3, 2);
   addNode(&head, 7, 3);
-  addNode(&head, 6, 2);
+  addNode(&head, 2, 2);
+  addNode(&head, 6, 3);
   printList(head);
 
-  printf("Deleted Node: %d\n",deleteNode(&head, 4));
+  //printf("Deleted Node: %d\n",deleteNode(&head, 4));
+  printf("Middle Element: %d\n", middleElement(head));
 	printList(head);
 
   return 1;	
