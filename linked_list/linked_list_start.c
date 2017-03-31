@@ -8,10 +8,25 @@ struct listNode{
 
 int deleteNode(struct listNode **head, int position){
   struct listNode *current, *p, *q;
-  current = 
-  if(position == 1){
+  int val;
 
+  current = *head;
+  if(position == 1){
+   *head = (*head)->next; //this bracket here is neccessary ***
+   val = current->data;
+   free(current);
+   return val;
   }
+  p = current;
+  while(p && position - 1){
+    q=p;
+    p=p->next;
+    position--;
+  }
+  q->next = p->next;
+  val = p->data;
+  free(p);
+  return val;
 }
 
 void addNode(struct listNode **head, int data, int position){
@@ -54,7 +69,7 @@ int main()
   addNode(&head, 6, 2);
   printList(head);
 
-  deleteNode(&head, 2)
+  printf("Deleted Node: %d\n",deleteNode(&head, 4));
 	printList(head);
 
   return 1;	
