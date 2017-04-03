@@ -93,6 +93,19 @@ int NthNodeFromEnd(struct listNode *head, int position){
   return q->data;
 }
 
+struct listNode * reverseAList(struct listNode **head){
+  struct listNode *p, *q, *r;
+  p = *head;
+  q = NULL;
+  while(p){
+   r = p->next;
+   p->next = q;
+   q = p;
+   p = r;
+  }
+  return q;
+}
+
 int main()
 { struct listNode *head = NULL;
   addNode(&head, 5, 1);
@@ -111,6 +124,9 @@ int main()
   if(val != -1)
     printf("Nth element from the end is %d\n", val);
   */
-  
+ 
+  head = reverseAList(&head);
+  printList(head);
+
   return 1;	
 }
