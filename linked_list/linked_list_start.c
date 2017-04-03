@@ -74,6 +74,25 @@ void printList(struct listNode *head){
   printf("\n");
 }
 
+int NthNodeFromEnd(struct listNode *head, int position){
+  struct listNode *p, *q;
+  p = head;
+  q = head;
+  while(position){
+    if(!p){
+      printf("List length is not good enough to calculate last nth element\n");
+      return -1;
+    }
+    p = p->next;
+    position--;
+  }
+  while(p){
+    p = p->next;
+    q = q->next;
+  }
+  return q->data;
+}
+
 int main()
 { struct listNode *head = NULL;
   addNode(&head, 5, 1);
@@ -84,8 +103,14 @@ int main()
   printList(head);
 
   //printf("Deleted Node: %d\n",deleteNode(&head, 4));
-  printf("Middle Element: %d\n", middleElement(head));
-	printList(head);
-
+  /*printf("Middle Element: %d\n", middleElement(head));
+	printList(head);*/
+  
+  /*int position = 3;
+  int val = NthNodeFromEnd(head, position);
+  if(val != -1)
+    printf("Nth element from the end is %d\n", val);
+  */
+  
   return 1;	
 }
