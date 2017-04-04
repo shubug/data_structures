@@ -106,6 +106,51 @@ struct listNode * reverseAList(struct listNode **head){
   return q;
 }
 
+struct listNode * reverseAListRec(struct listNode **head){
+ struct listNode *temp = NULL;
+ return temp;
+}
+
+void swap2Nodes(struct listNode **head, int x, int y){
+  if (x == y)
+    return ;
+
+  struct listNode *currX, *prevX, *currY, *prevY;
+  currX = *head;
+  prevX = NULL;
+  while(currX && currX->data != x){
+    prevX = currX;
+    currX = currX->next;
+  }
+
+  currY = *head;
+  prevY = NULL;
+  while(currY && currY->data != y){
+    prevY = currY;
+    currY = currY->next;
+  }
+
+  if(!currX || !currY) //In case X or Y node don't exist in the list
+    return ;
+  
+  if(prevX != NULL) //To check if X is the head node
+    prevX->next = currY;
+  else
+    *head = currY;
+
+  if(prevY != NULL) //To check if Y is the head node
+    prevY->next = currX;
+  else
+    *head = currX;
+
+  //Now set the currX and currY pointers
+  struct listNode *temp = currX->next;
+  currX->next = currY->next;
+  currY->next = temp;
+
+  return ;
+}
+
 int main()
 { struct listNode *head = NULL;
   addNode(&head, 5, 1);
@@ -125,7 +170,13 @@ int main()
     printf("Nth element from the end is %d\n", val);
   */
  
-  head = reverseAList(&head);
+  /*head = reverseAList(&head);
+  printList(head);
+
+  head = reverseAListRec(&head);
+  printList(head);*/
+
+  swap2Nodes(&head, 5, 7);
   printList(head);
 
   return 1;	
