@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-int search(int mat[4][4], int n, int x){
+int search(int mat[4][4],int m, int n, int x){
  int i,j;
- for(i=0,j=n-1; i<n,j>=0;){
+ for(i=0,j=n-1; i<m,j>=0;){
    if(mat[i][j] == x){
    	printf("Element found at %d,%d\n", i, j);
    	return 1;
@@ -21,8 +21,8 @@ int main(){
                   {27, 29, 37, 48},
                   {32, 33, 39, 50},
                  };
- int x = 32;
- if (search(mat, 4, x) == 0)
+ int x = 59;
+ if (search(mat, 4, 4, x) == 0)
  	printf("Element not found in the matrix\n");
  return 1;
 }
