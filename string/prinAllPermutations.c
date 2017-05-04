@@ -1,4 +1,7 @@
 /*** Print all permutaions of a string ***/
+/*** Complexity = n! * n where n! is the no. of output strings and n is the string length to print the entire string everytime ***/
+/*** If we just have to count the no. of total permutations of the string instead of printing them , then complexity would be just n! not n! * n
+
 #include <stdio.h>
 #include <string.h>
 
@@ -31,7 +34,7 @@ void printAllPerm(char str[], int l, int r){
 }
 
 int main(){
- char str[] = "ABC";
+ char str[] = "ABCD";
  int len = strlen(str);
  printAllPerm(str, 0, len-1);
 
