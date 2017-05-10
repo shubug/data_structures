@@ -106,9 +106,15 @@ struct listNode * reverseAList(struct listNode **head){
   return q;
 }
 
-struct listNode * reverseAListRec(struct listNode **head){
- struct listNode *temp = NULL;
- return temp;
+struct listNode * reverseAListRec(struct listNode *curr, struct listNode **head){
+ if(curr->next == NULL){
+  *head = curr;
+  return curr;
+ }
+ struct listNode *rev = reverseAListRec(curr->next, head); //We are passing the reference to head here so that we can change it when we hit the last node
+ curr->next = NULL;
+ rev->next = curr;
+ return curr;
 }
 
 void swap2Nodes(struct listNode **head, int x, int y){
@@ -171,13 +177,13 @@ int main()
   */
  
   /*head = reverseAList(&head);
-  printList(head);
-
-  head = reverseAListRec(&head);
   printList(head);*/
 
-  swap2Nodes(&head, 5, 7);
+  reverseAListRec(head, &head);
   printList(head);
+
+  /*swap2Nodes(&head, 5, 7);
+  printList(head);*/
 
   return 1;	
 }
