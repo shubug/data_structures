@@ -3,10 +3,16 @@
 #include <stdlib.h>
 #include <math.h>
 
-int reverseANum(int n){
- int rem, temp, newNum = 0;
+int reverseANumWithDigit(int n, int *digit){
+ int rem, found=0, temp, newNum = 0;
  while(n>0){
   rem = n % 10;
+  if(found==0 && (rem > *digit)){
+   temp = *digit;
+   *digit = rem;
+   rem = temp;
+   found = 1;
+  }
   newNum = (newNum*10) + rem;
   n = n/10;
  }
@@ -14,7 +20,7 @@ int reverseANum(int n){
 }
 
 int nextNum(int num){
- int i=0, rem, last, digit, dummy=0;
+ int i=0, rem, last, dummy=0;
  int tens, temp, left, right, swap_digit, found=0;
  
  if(num <= 10)
@@ -33,29 +39,28 @@ int nextNum(int num){
   last = rem;
   dummy = dummy/10;
  }
- printf("dummy: %d\n", dummy);
  
  if(found==0)
   return num;
-
+ 
+ int *digit = (int *)malloc(sizeof(int));
+ 
  tens = (int)pow(10.0, i);
  temp = num/tens;
- printf("num: %d, temp: %d\n", num, temp);
  left = temp/10;
- digit = temp % 10;
+ *digit = temp % 10;
  right = num % tens;
  
  swap_digit = right % 10;
- right = (right/10)*10 + digit;
- right = reverseANum(right);
+ right = reverseANumWithDigit(right, digit);
  
- printf("left: %d, right: %d, swap_digit: %d, i: %d, temp: %d, num: %d\n", left, right, swap_digit, i, temp, num);
- return ((left*10)+swap_digit)*tens + right;
+ return ((left*10)+(*digit))*tens + right;
 }
 
 int main(){
  //int num = 218765;
- int num = 534976;
+ int num = 537986;
+ //int num = 534976;
  printf("The next greater number with the same digits is: %d\n", nextNum(num));
  return 0;
 }
