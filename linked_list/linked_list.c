@@ -68,7 +68,35 @@ struct listNode *middleElement(struct listNode *head){
  return slowPtr; 
 }
 
+struct listNode *reverseTheList(struct listNode *head){
+ struct listNode *p, *q, *r;
+ if(!head || !(head->next))
+  return head;
+
+ p=head;
+ q=NULL;
+ r=head->next;
+ while(r){
+  p->next = q;
+  q=p;
+  p=r;
+  r=p->next;
+ }
+ p->next=q;
+ return p;
+}
+
+int checkPalindrome(struct listNode *head){
+ struct listNode *temp, *mid;
+ if(!head || !(head->next))
+  return 1;  //if lenght of linked list is less than 1, it's a palindrome
+ 
+ mid = middleElement(head);
+ mid->next = reverseTheList(mid->next);
+}
+
 int main(){
+ int res;
  struct listNode *head = NULL;
  addNode(&head, 4, 0);
  addNode(&head, 7, 2);
@@ -81,6 +109,15 @@ int main(){
  printlist(head);
 
  //printlist(middleElement(head)); 
+ head = reverseTheList(head);
+ printlist(head);
+ return 0;
 
+ res = checkIfPalindrome(head);
+ if(res)
+  printf("The given list is palindrome");
+ else
+  printf("Given list isn't a palindrome");
+ 
  return 0;
 }
