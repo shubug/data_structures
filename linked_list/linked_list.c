@@ -54,6 +54,20 @@ struct listNode *reverseInPair(struct listNode *head){
  return temp;
 }
 
+struct listNode *middleElement(struct listNode *head){
+ struct listNode *slowPtr, *fastPtr;
+ slowPtr=fastPtr=head;
+ 
+ while(fastPtr->next){
+  fastPtr = fastPtr->next;
+  if(fastPtr->next){
+   fastPtr = fastPtr->next;
+   slowPtr = slowPtr->next;
+  }
+ }
+ return slowPtr; 
+}
+
 int main(){
  struct listNode *head = NULL;
  addNode(&head, 4, 0);
@@ -61,9 +75,12 @@ int main(){
  addNode(&head, 34, 1); 
  addNode(&head, 2, 1);
  addNode(&head, 52, 4); 
- printlist(head);
+ //printlist(head);
 
  head = reverseInPair(head);
  printlist(head);
+
+ //printlist(middleElement(head)); 
+
  return 0;
 }
