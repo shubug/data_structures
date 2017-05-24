@@ -38,13 +38,32 @@ void printlist(struct listNode *head){
   printf("%d ", head->data);
   head = head->next;
  }
+ printf("\n");
+}
+
+struct listNode *reverseInPair(struct listNode *head){
+ struct listNode *temp, *current=head;
+ if(!head || !(head->next))
+  return head;
+ 
+ temp = current->next;
+ current->next = temp->next;
+ temp->next = current;
+ current->next = reverseInPair(current->next);
+
+ return temp;
 }
 
 int main(){
  struct listNode *head = NULL;
  addNode(&head, 4, 0);
  addNode(&head, 7, 2);
- 
+ addNode(&head, 34, 1); 
+ addNode(&head, 2, 1);
+ addNode(&head, 52, 4); 
+ printlist(head);
+
+ head = reverseInPair(head);
  printlist(head);
  return 0;
 }
