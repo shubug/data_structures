@@ -86,13 +86,23 @@ struct listNode *reverseTheList(struct listNode *head){
  return p;
 }
 
-int checkPalindrome(struct listNode *head){
- struct listNode *temp, *mid;
+int checkIfPalindrome(struct listNode *head){
+ struct listNode *ptr1, *ptr2, *mid;
  if(!head || !(head->next))
   return 1;  //if lenght of linked list is less than 1, it's a palindrome
  
  mid = middleElement(head);
  mid->next = reverseTheList(mid->next);
+
+ ptr1 = head;
+ ptr2 = mid->next;
+ while(ptr2){
+  if(ptr1->data != ptr2->data)
+   return 0;
+  ptr1 = ptr1->next;
+  ptr2 = ptr2->next;
+ }
+ return 1;
 }
 
 int main(){
@@ -109,9 +119,8 @@ int main(){
  printlist(head);
 
  //printlist(middleElement(head)); 
- head = reverseTheList(head);
- printlist(head);
- return 0;
+ /*head = reverseTheList(head);
+ printlist(head);*/
 
  res = checkIfPalindrome(head);
  if(res)
