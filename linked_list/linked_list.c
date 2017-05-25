@@ -105,28 +105,74 @@ int checkIfPalindrome(struct listNode *head){
  return 1;
 }
 
+struct listNode *checkIfKNodes(struct listNode *head, int k){
+ int count=0;
+ while(head){
+  count++;
+  if(count == k)
+   return head;
+  head=head->next;
+ }
+ return NULL;
+}
+
+struct listNode *reverseInK(struct listNode *head, int k){
+ struct listNode *lastNode = checkIfKNodes(head, k);
+ struct listNode *current=head, *q=NULL, *r;
+ if(lastNode){
+  r = current->next;
+  while(current != lastNode){
+   current->next=q;
+   q=current;
+   current=r;
+   r=current->next;
+  } 
+  current->next = q;
+  head->next = reverseInK(r, 3); 
+ }
+ return current;
+}
+
 int main(){
  int res;
  struct listNode *head = NULL;
- addNode(&head, 4, 0);
+ addNode(&head, 1, 0);
+ addNode(&head, 2, 1);
+ addNode(&head, 3, 2);
+ addNode(&head, 4, 3);
+ addNode(&head, 5, 4);
+ addNode(&head, 6, 5);
+ addNode(&head, 7, 6);
+ addNode(&head, 8, 7);
+ addNode(&head, 9, 8);
+ printlist(head);
+
+ /*addNode(&head, 4, 0);
  addNode(&head, 7, 2);
  addNode(&head, 34, 1); 
  addNode(&head, 2, 1);
  addNode(&head, 52, 4); 
- //printlist(head);
-
- head = reverseInPair(head);
- printlist(head);
-
- //printlist(middleElement(head)); 
- /*head = reverseTheList(head);
  printlist(head);*/
 
+ /*
+ head = reverseInPair(head);
+ printlist(head);
+ */
+
+ /*printlist(middleElement(head));*/
+
+ /*head = reverseTheList(head);
+ printlist(head);*/
+ 
+ /*
  res = checkIfPalindrome(head);
  if(res)
   printf("The given list is palindrome");
  else
   printf("Given list isn't a palindrome");
+ */
  
+ head = reverseInK(head, 3);
+ printlist(head);
  return 0;
 }
