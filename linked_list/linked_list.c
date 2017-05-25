@@ -128,7 +128,7 @@ struct listNode *reverseInK(struct listNode *head, int k){
    r=current->next;
   } 
   current->next = q;
-  head->next = reverseInK(r, 3); 
+  head->next = reverseInK(r, k); 
  }
  return current;
 }
@@ -144,7 +144,7 @@ int main(){
  addNode(&head, 6, 5);
  addNode(&head, 7, 6);
  addNode(&head, 8, 7);
- addNode(&head, 9, 8);
+ //addNode(&head, 9, 8);
  printlist(head);
 
  /*addNode(&head, 4, 0);
@@ -172,7 +172,7 @@ int main(){
   printf("Given list isn't a palindrome");
  */
  
- head = reverseInK(head, 3);
+ head = reverseInK(head, 4);
  printlist(head);
  return 0;
 }
