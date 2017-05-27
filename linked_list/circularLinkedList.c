@@ -26,19 +26,21 @@ void addNode(listNode **head, int data){
 
 void printlist(listNode *head){
  listNode *temp = head;
- if(temp->next == head) //This is to handle the case when there is only 1 node in the linked list
-  printf("xx %d ", temp->data);
- while(temp->next != head){
+ if(temp){
   printf("%d ", temp->data);
   temp = temp->next;
  }
- printf("\n");
+ while(temp != head){
+  printf("%d ", temp->data);
+  temp = temp->next;
+ }
 }
 
 int main(){
  listNode *head = NULL;
  addNode(&head, 2);
  addNode(&head, 4);
+ addNode(&head, 6);
  printlist(head);
  
  return 0;
