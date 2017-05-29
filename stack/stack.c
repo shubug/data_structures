@@ -43,15 +43,45 @@ int pop(struct Stack *S){
  return INT_MIN;
 }
 
+struct Stack *createDStack(){
+ struct Stack *DS = malloc(sizeof(struct Stack));
+ if(!DS)
+  return NULL;
+ DS->top = -1;
+ DS->capacity = 1; // As this is a dynamic array, so we start the stack with minimum capacity and then keep on incresing it as per the requirement
+ DS->array = (int *)malloc(sizeof(int));
+
+ return DS;
+}
+
+void revampDStack(struct Stack *DS){
+ DS->capacity *= 2;
+ DS->array = realloc(DS->array, DS->capacity);
+}
+
+void Dpush(struct Stack *DS, int data){
+ if(isStackFull(DS))
+  revampDStack(DS);
+ DS->array[++DS->top] = data;
+}
+
 int main(){
 
- struct Stack *S = createStack(10);
+ /*struct Stack *S = createStack(10);
  push(S, 23);
  push(S, 11);
  push(S, 45);
  printf("Popped Element: %d\n", pop(S));
- printf("Popped Element: %d\n", pop(S));
+ printf("Popped Element: %d\n", pop(S));*/
  //printf("Popped: %d\n", pop(S));
-  
+ 
+ struct Stack *DS = createDStack(); 
+ Dpush(DS, 3);
+ Dpush(DS, 6);
+ Dpush(DS, 9); 
+ printf("Popped Element: %d\n", pop(DS));
+ printf("Popped Element: %d\n", pop(DS));
+ printf("Popped Element: %d\n", pop(DS));
+ printf("Popped Element: %d\n", pop(DS));
  return 0;
 }
