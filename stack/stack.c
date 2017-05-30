@@ -8,6 +8,11 @@ struct Stack{
  int *array;
 };
 
+struct AdvanceStack{
+ struct Stack *elementStack;
+ struct Stack *minStack;
+};
+
 struct Stack *createStack(int capacity){
  struct Stack *S = malloc(sizeof(struct Stack));
  if(!S)
@@ -43,6 +48,10 @@ int pop(struct Stack *S){
  return INT_MIN;
 }
 
+int top(struct Stack *S){
+ return S->array[S->top];
+}
+
 struct Stack *createDStack(){
  struct Stack *DS = malloc(sizeof(struct Stack));
  if(!DS)
@@ -65,6 +74,36 @@ void Dpush(struct Stack *DS, int data){
  DS->array[++DS->top] = data;
 }
 
+struct AdvanceStack *createAdvStack(int capacity){
+ struct AdvanceStack *AS = (struct AdvanceStack *)malloc(sizeof(struct AdvanceStack));
+ if(!AS)
+  return NULL;
+ AS->elementStack = createStack(capacity);
+ AS->minStack = createStack(capacity);
+ return AS;
+}
+
+void ASpush(struct AdvanceStack *AS, int data){
+ push(AS->elementStack, data);
+ if(isStackEmpty(AS->minStack) || top(AS->minStack) >= data)
+  push(AS->minStack, data);
+}
+
+int ASpop(struct AdvanceStack *AS){
+ int temp;
+ if(isStackEmpty(AS->elementStack))
+  return -1;
+ temp = top(AS->elementStack);
+ if(top(AS->minStack) == pop(AS->elementStack))
+  pop(AS->minStack);
+ 
+ return temp;
+}
+
+int getMinimum(struct AdvanceStack *AS){
+ return top(AS->minStack);
+}
+
 int main(){
 
  /*struct Stack *S = createStack(10);
@@ -75,13 +114,30 @@ int main(){
  printf("Popped Element: %d\n", pop(S));*/
  //printf("Popped: %d\n", pop(S));
  
- struct Stack *DS = createDStack(); 
+ /*struct Stack *DS = createDStack(); 
  Dpush(DS, 3);
  Dpush(DS, 6);
  Dpush(DS, 9); 
  printf("Popped Element: %d\n", pop(DS));
  printf("Popped Element: %d\n", pop(DS));
  printf("Popped Element: %d\n", pop(DS));
- printf("Popped Element: %d\n", pop(DS));
+ printf("Popped Element: %d\n", pop(DS));*/
+ 
+ struct AdvanceStack *AS = createAdvStack(10);
+ ASpush(AS, 5);
+ ASpush(AS, 2);
+ ASpush(AS, 4);
+ ASpush(AS, 2);
+ ASpush(AS, 1);
+ printf("Minimum Element: %d\n", getMinimum(AS));
+ printf("Popped Element: %d\n", ASpop(AS));
+ printf("Minimum Element: %d\n", getMinimum(AS));
+ printf("Popped Element: %d\n", ASpop(AS));
+ printf("Minimum Element: %d\n", getMinimum(AS));
+ printf("Popped Element: %d\n", ASpop(AS));
+ printf("Minimum Element: %d\n", getMinimum(AS));
+ printf("Popped Element: %d\n", ASpop(AS));
+ printf("Minimum Element: %d\n", getMinimum(AS));
+ 
  return 0;
 }
