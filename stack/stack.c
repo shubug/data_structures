@@ -1,3 +1,6 @@
+/*** 1. Implementing Stack using array ***/
+/*** 2. Additional functionality of Dynamic Stack (DS) ***/
+/*** 3. Implementing Advance Minimum Stack that returns min element in stack in O(1) (AS) ***/
 # include <stdio.h>
 # include <stdlib.h>
 # include <limits.h>
