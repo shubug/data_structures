@@ -107,6 +107,18 @@ int getMinimum(struct AdvanceStack *AS){
  return top(AS->minStack);
 }
 
+void insertAtBottom(struct Stack *S, int data){
+}
+
+void reverseStack(struct Stack *S){
+ if(isStackEmpty(S))
+  return ;
+ int temp = pop(S);
+ reverseStack(S);
+ insertAtBottom(S, temp); //Replacement of push operation to put it back into the stack
+ return ;
+}
+
 int main(){
 
  /*struct Stack *S = createStack(10);
@@ -126,7 +138,7 @@ int main(){
  printf("Popped Element: %d\n", pop(DS));
  printf("Popped Element: %d\n", pop(DS));*/
  
- struct AdvanceStack *AS = createAdvStack(10);
+ /*struct AdvanceStack *AS = createAdvStack(10);
  ASpush(AS, 5);
  ASpush(AS, 2);
  ASpush(AS, 4);
@@ -140,7 +152,17 @@ int main(){
  printf("Popped Element: %d\n", ASpop(AS));
  printf("Minimum Element: %d\n", getMinimum(AS));
  printf("Popped Element: %d\n", ASpop(AS));
- printf("Minimum Element: %d\n", getMinimum(AS));
+ printf("Minimum Element: %d\n", getMinimum(AS));*/
+
+ struct Stack *S = createStack(10);
+ push(S, 23);
+ push(S, 11);
+ push(S, 45);
+ push(S, 68);
+ reverseStack(S);
+ printf("Popped Element after reversing the stack: %d\n", pop(S));
+ printf("Popped Element after reversing the stack: %d\n", pop(S));
+ printf("Popped Element after reversing the stack: %d\n", pop(S));
  
  return 0;
 }
