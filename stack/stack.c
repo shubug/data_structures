@@ -108,6 +108,14 @@ int getMinimum(struct AdvanceStack *AS){
 }
 
 void insertAtBottom(struct Stack *S, int data){
+ if(isStackEmpty(S))
+  push(S, data);
+ else{
+  int temp = pop(S);
+  insertAtBottom(S, data);
+  push(S, temp);
+ }
+ return ;
 }
 
 void reverseStack(struct Stack *S){
