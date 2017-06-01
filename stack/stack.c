@@ -208,8 +208,8 @@ int main(){
 
  struct Stack *S = createStack(10);
  //char str[] = "325641";
- char str[] = "154623";
- printf("Result: %d\n", ifStringPossible(S, str));
+ char str[] = "154623"; //We can make it more generic by passing the length of the string and use it for any length
+ printf("Possible: %d\n", ifStringPossible(S, str));
  
  return 0;
 }
