@@ -52,6 +52,8 @@ int pop(struct Stack *S){
 }
 
 int top(struct Stack *S){
+ if(isStackEmpty(S))
+  return -1;
  return S->array[S->top];
 }
 
@@ -127,6 +129,38 @@ void reverseStack(struct Stack *S){
  return ;
 }
 
+int ifStringPossible(struct Stack *S, char str[]){
+ char *c = str;
+ int temp;
+ int input[] = {1, 2, 3, 4, 5, 6};
+ int i = 0;
+ 
+ while(*c != '\0'){
+  temp = *c - '0';
+  c++;
+  if(i==6) //temp in this loop at any point should be equal to either top(S) which or input[i] (or atleast moving towards getting equal by doing i++)
+   return 0; //both are conditions gives negative result here as i>length(means we can't access input[i]) and top(S)!=temp as just checked  
+  while(input[i] != temp){
+   push(S, input[i]);
+   i++;
+  }
+  i++;
+  if(*c == '\0')
+   break;
+  temp = *c - '0'; //Assigned the 2nd character from the string to temp
+  while(top(S) == temp){
+   pop(S);
+   c++;
+   if(*c != '\0')
+    temp = *c - '0';
+  }  
+ }
+
+ if(isStackEmpty(S))
+  return 1;
+ return 0;
+}
+
 int main(){
 
  /*struct Stack *S = createStack(10);
@@ -162,7 +196,7 @@ int main(){
  printf("Popped Element: %d\n", ASpop(AS));
  printf("Minimum Element: %d\n", getMinimum(AS));*/
 
- struct Stack *S = createStack(10);
+ /*struct Stack *S = createStack(10);
  push(S, 23);
  push(S, 11);
  push(S, 45);
@@ -170,7 +204,12 @@ int main(){
  reverseStack(S);
  printf("Popped Element after reversing the stack: %d\n", pop(S));
  printf("Popped Element after reversing the stack: %d\n", pop(S));
- printf("Popped Element after reversing the stack: %d\n", pop(S));
+ printf("Popped Element after reversing the stack: %d\n", pop(S));*/
+
+ struct Stack *S = createStack(10);
+ //char str[] = "325641";
+ char str[] = "154623";
+ printf("Result: %d\n", ifStringPossible(S, str));
  
  return 0;
 }
