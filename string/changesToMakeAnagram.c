@@ -4,21 +4,28 @@
 #include <stdlib.h>
 #include <math.h>
 
-int arr[26] = {0};
-
 int numOfChanges(char str[], int len){
- int i;
+ int arr[26] = {0};
+ int i, res=0;
  char *c;
- c = str
+ c = str;
  
- for(i=0; i<len/2; i++, c++){
+ for(i=0; i<len/2; i++, c++)
   arr[(*c)-'a']++;
-  
- c++;
+ 
  while(*c != '\0'){
+  arr[(*c)-'a']--;
+  c++;
  } 
 
- return 0;
+ for(i=0; i<26; i++){
+  if(arr[i] > 0)
+   res = res + arr[i];
+  else
+   res = res - arr[i];
+ }
+
+ return res/2;
 }
 
 int main(){
@@ -36,5 +43,5 @@ int main(){
   count--;
  }
   
- return 1;
+ return 0;
 }
