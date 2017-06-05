@@ -22,6 +22,22 @@ void printPreOrder(struct BinaryTreeNode *root){
  }
 }
 
+void printInOrder(struct BinaryTreeNode *root){
+ if(root){
+  printPreOrder(root->left);
+  printf("%d->", root->data);
+  printPreOrder(root->right);
+ }
+}
+
+void printPostOrder(struct BinaryTreeNode *root){
+ if(root){
+  printPreOrder(root->left);
+  printPreOrder(root->right); 
+  printf("%d->", root->data);
+ }
+}
+
 int main(){
  struct BinaryTreeNode *root = newNode(1);
  
@@ -35,6 +51,12 @@ int main(){
  
  printPreOrder(root);
  printf("\n"); 
+
+ printInOrder(root);
+ printf("\n");
+
+ printPostOrder(root);
+ printf("\n");
 
  return 0;
 }
