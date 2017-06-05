@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int stack[20];
+int top = -1;
+
 struct BinaryTreeNode{
  int data;
  struct BinaryTreeNode *left;
@@ -24,17 +27,23 @@ void printPreOrder(struct BinaryTreeNode *root){
 
 void printInOrder(struct BinaryTreeNode *root){
  if(root){
-  printPreOrder(root->left);
+  printInOrder(root->left);
   printf("%d->", root->data);
-  printPreOrder(root->right);
+  printInOrder(root->right);
  }
 }
 
 void printPostOrder(struct BinaryTreeNode *root){
  if(root){
-  printPreOrder(root->left);
-  printPreOrder(root->right); 
+  printPostOrder(root->left);
+  printPostOrder(root->right); 
   printf("%d->", root->data);
+ }
+}
+
+preOrderIter(struct BinaryTreeNode *root){
+ while(1){
+  
  }
 }
 
@@ -57,6 +66,8 @@ int main(){
 
  printPostOrder(root);
  printf("\n");
-
+ 
+ 
+ //PreOrderIter(root);
  return 0;
 }
