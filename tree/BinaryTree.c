@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int stack[20];
-int top = -1;
-
 struct BinaryTreeNode{
  int data;
  struct BinaryTreeNode *left;
  struct BinaryTreeNode *right;
 };
+
+struct BinaryTreeNode* stack[20];
+int top = -1;
 
 struct BinaryTreeNode *newNode(int data){
  struct BinaryTreeNode *newNode = (struct BinaryTreeNode *)malloc(sizeof(struct BinaryTreeNode));
@@ -41,11 +41,52 @@ void printPostOrder(struct BinaryTreeNode *root){
  }
 }
 
-preOrderIter(struct BinaryTreeNode *root){
- while(1){
-  
- }
+void push(struct BinaryTreeNode *node){
+ stack[++top] = node;
 }
+
+int isStackEmpty(){
+ return top == -1;
+}
+
+struct BinaryTreeNode *pop(){
+ if(isStackEmpty())
+  return NULL;
+ return stack[top--];
+}
+
+void preOrderIter(struct BinaryTreeNode *root){
+ struct BinaryTreeNode *temp;
+ while(1){
+  while(root){
+   printf("%d->", root->data);
+   push(root);
+   root = root->left;
+  }
+  temp = pop();
+  if(!temp)
+   break;
+  root = temp->right;
+ }
+ return ;
+}
+
+void inOrderIter(struct BinaryTreeNode *root){
+ struct BinaryTreeNode *temp;
+ while(1){
+  while(root){
+   push(root);
+   root = root->left;
+  }
+  temp = pop();
+  if(!temp)
+   break;
+  printf("%d->", temp->data);
+  root = temp->right;
+ }
+ return ;
+}
+
 
 int main(){
  struct BinaryTreeNode *root = newNode(1);
@@ -57,7 +98,7 @@ int main(){
  
  root->right->left = newNode(6);
  root->right->right = newNode(7);
- 
+ /*
  printPreOrder(root);
  printf("\n"); 
 
@@ -66,8 +107,10 @@ int main(){
 
  printPostOrder(root);
  printf("\n");
+ */ 
  
+ //preOrderIter(root);
+ inOrderIter(root);
  
- //PreOrderIter(root);
  return 0;
 }
