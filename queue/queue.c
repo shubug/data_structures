@@ -52,16 +52,52 @@ int dequeue(struct Queue *Q){
  return temp;
 }
 
+void resizeQueue(struct Queue *Q){
+ int size = Q->capacity;
+ Q->capacity *= 2;
+ Q->arr = realloc(Q->arr, Q->capacity);
+
+ if(Q->front > Q->rear){
+  for(int i=0; i<Q->front; i++)
+   Q->arr[i+size] = Q->arr[i];
+
+  Q->rear = Q->rear + size;
+ }
+}
+
+void DynEnqueue(struct Queue *Q, int data){
+ if(isQueueFull(Q))
+  resizeQueue(Q);
+ 
+  Q->rear = (Q->rear + 1) % Q->capacity;
+  Q->arr[Q->rear] = data;
+
+  if(Q->front == -1)
+   Q->front = Q->rear;
+}
+
 int main(){
  struct Queue *Q = createQueue(4);
- enqueue(Q, 3);
+ /*enqueue(Q, 3);
  enqueue(Q, 6);
  enqueue(Q, 9);
  enqueue(Q, 12);
+ enqueue(Q, 13);
  printf("Dequeue: %d\n", dequeue(Q));
  enqueue(Q, 15);
  printf("Dequeue: %d\n", dequeue(Q));
  printf("Dequeue: %d\n", dequeue(Q));
-
+ */
+ 
+ DynEnqueue(Q, 3);
+ DynEnqueue(Q, 6);
+ DynEnqueue(Q, 9);
+ DynEnqueue(Q, 12);
+ DynEnqueue(Q, 13);
+ printf("Dequeue: %d\n", dequeue(Q));
+ DynEnqueue(Q, 15);
+ printf("Dequeue: %d\n", dequeue(Q));
+ printf("Dequeue: %d\n", dequeue(Q));
+ 
  return 0;
 }
