@@ -7,6 +7,54 @@ struct BinaryTreeNode{
  struct BinaryTreeNode *right;
 };
 
+struct Queue{
+ struct BinaryTreeNode *data;
+ int front, rear;
+ int capacity;
+ struct BinaryTreeNode **arr;
+};
+
+struct Queue *createQueue(int capacity){
+ struct Queue *Q = malloc(sizeof(struct Queue));
+ Q->capacity = capacity;
+ Q->front = Q->rear = -1;
+ Q->arr = (struct BinaryTreeNode **)malloc(Q->capacity * sizeof(struct BinaryTreeNode *));
+ return Q;
+}
+
+int isQueueFull(struct Queue *Q){
+ return ((Q->rear + 1) % Q->capacity == Q->front);
+}
+
+void enqueue(struct Queue *Q, struct BinaryTreeNode *node){
+ if(isQueueFull(Q))
+  printf("Queue Overflow!!\n");
+ else{
+  Q->rear = (Q->rear + 1) % Q->capacity;
+  Q->arr[Q->rear] = node;
+  if(Q->front == -1)
+   Q->front = Q->rear;
+ }
+}
+
+int isQueueEmpty(struct Queue *Q){
+ return Q->front == -1;
+}
+
+struct BinaryTreeNode *dequeue(struct Queue *Q){
+ if(isQueueEmpty(Q))
+  printf("Queue Underflow!!\n");
+ else{
+  struct BinaryTreeNode *temp = Q->arr[Q->front];
+  if(Q->front == Q->rear)
+   Q->front = Q->rear = -1;
+  else
+   Q->front = (Q->front + 1) % Q->capacity;
+  return temp;
+ }
+ return NULL;
+}
+
 struct BinaryTreeNode* stack[20];
 int top = -1;
 
@@ -87,6 +135,24 @@ void inOrderIter(struct BinaryTreeNode *root){
  return ;
 }
 
+void levelOrder(struct BinaryTreeNode *root){
+ if(!root)
+  return ;
+ struct Queue *Q = createQueue(10);
+ struct BinaryTreeNode *temp = NULL;
+
+ printf("Level order traversal of tree: ");
+ enqueue(Q, root);
+ while(!isQueueEmpty(Q)){
+  temp = dequeue(Q);
+  printf("%d->", temp->data);
+  if(temp->left)
+   enqueue(Q, temp->left);
+  if(temp->right)
+   enqueue(Q, temp->right);
+ }
+ printf("\n");
+}
 
 int main(){
  struct BinaryTreeNode *root = newNode(1);
@@ -110,7 +176,8 @@ int main(){
  */ 
  
  //preOrderIter(root);
- inOrderIter(root);
+ //inOrderIter(root);
+ levelOrder(root);
  
  return 0;
 }
