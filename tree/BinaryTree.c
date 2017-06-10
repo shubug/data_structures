@@ -154,6 +154,19 @@ void levelOrder(struct BinaryTreeNode *root){
  printf("\n");
 }
 
+int heightOfTree(struct BinaryTreeNode *root){
+ int left, right;
+ if(!root)
+  return 0;
+ 
+ left = heightOfTree(root->left);
+ right = heightOfTree(root->right);
+ if(left > right)
+  return 1 + left;
+ else
+  return 1 + right;
+}
+
 int main(){
  struct BinaryTreeNode *root = newNode(1);
  
@@ -177,7 +190,8 @@ int main(){
  
  //preOrderIter(root);
  //inOrderIter(root);
- levelOrder(root);
+ //levelOrder(root);
+ printf("Height of the above tree is: %d\n", heightOfTree(root));
  
  return 0;
 }
