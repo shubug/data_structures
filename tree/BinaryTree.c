@@ -167,6 +167,10 @@ int heightOfTree(struct BinaryTreeNode *root){
   return 1 + right;
 }
 
+void deleteANode(struct BinaryTreeNode *root, struct BinaryTreeNode *node){
+ 
+}
+
 int main(){
  struct BinaryTreeNode *root = newNode(1);
  
@@ -191,7 +195,9 @@ int main(){
  //preOrderIter(root);
  //inOrderIter(root);
  //levelOrder(root);
- printf("Height of the above tree is: %d\n", heightOfTree(root));
+ /*printf("Height of the above tree is: %d\n", heightOfTree(root));*/
+ deleteANode(root, root->left->right);
+ levelOrder(root);
  
  return 0;
 }
