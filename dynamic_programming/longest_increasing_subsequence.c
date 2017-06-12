@@ -1,3 +1,5 @@
+/*** Task is to find out the longest increasing subsequence in the given array ***/
+/*** In the example below LIS is: 5 (-1 2 4 7 8) ***/
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -6,21 +8,23 @@ int max(int a, int b){
 }
 
 int lis(int arr[], int n){
- int i, j, res, temp[n];
-
+ int i, j, res, LIS[n];
+ //initially consider the LIS value = 1 for all the array elements, including just themselves
  for(i=0; i<n; i++)
-  temp[i] = 1;
+  LIS[i] = 1;
 
+ //In this for loop, chck if there is any element 'j' before 'i' where arr[i]>arr[j], then LIS[i] should be atleast LIS[j]+1
  for(i=1; i<n; i++){
   for(j=0; j<i; j++){
    if(arr[i] > arr[j])
-    temp[i] = max(temp[i], temp[j]+1);
+    LIS[i] = max(LIS[i], LIS[j]+1);
   }
  }
- res = temp[0];
+ //finally the LIS of the array will be the maximum of LIS[i];
+ res = LIS[0];
  for(i=0; i<n; i++){
-  if(temp[i] > res)
-   res = temp[i];
+  if(LIS[i] > res)
+   res = LIS[i];
  }
  return res;
 }
