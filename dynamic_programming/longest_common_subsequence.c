@@ -14,7 +14,7 @@ int LCS(char str1[], char str2[]){
  int l1 = strlen(str1);
  int l2 = strlen(str2);
  int arr[l2+1][l1+1];
- int i, j;
+ int i, j, res;
 
  for(i=0; i<=l2; i++)
   arr[i][0] = 0;
@@ -29,8 +29,26 @@ int LCS(char str1[], char str2[]){
     arr[i][j] = max(arr[i-1][j], arr[i][j-1]);
   }
  }
-
- return arr[i-1][j-1];
+ res = arr[i-1][j-1];
+ /*** Additional code to print the LCS ***/
+ /*** This will print the LCS in reverse order. For correct order keep pushing the characters in a stack and the pop n print them until the stack is empty ***/
+ i = i-1;
+ j = j-1;
+ while(i>0 && j>0){
+  if(str1[j-1] == str2[i-1]){
+   printf("%c ", str1[j-1]);
+   i--;
+   j--;
+  }
+  else{
+   if(arr[i-1][j] > arr[i][j-1])
+    i--;
+   else
+    j--;
+  }
+ }
+ printf("\n");
+ return res;
 }
 
 int main(){
