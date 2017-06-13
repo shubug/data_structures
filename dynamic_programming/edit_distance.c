@@ -1,3 +1,5 @@
+/*** Task is to convert one string into another usin =g minimum number of insert/delete/replace oprations ***/
+/*** Complexity of the approach below is 3 raise to the power m , where 3 is for (insert + delete + replace) and 'm' is length of the bigger string worst casehappens when no character int the strings matches
 #include <stdio.h>
 #include <string.h>
 
