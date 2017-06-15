@@ -179,6 +179,10 @@ struct BinaryTreeNode *LCA(struct BinaryTreeNode *root, struct BinaryTreeNode *a
 
 }
 
+int hasPathSum(struct BinaryTreeNode *root, int sum){
+
+}
+
 int main(){
  struct BinaryTreeNode *root = newNode(1);
  
