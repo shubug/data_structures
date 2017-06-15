@@ -171,6 +171,10 @@ void deleteANode(struct BinaryTreeNode *root, struct BinaryTreeNode *node){
  
 }
 
+int diameterOfTree(struct BinaryTreeNode *root){
+
+}
+
 int main(){
  struct BinaryTreeNode *root = newNode(1);
  
