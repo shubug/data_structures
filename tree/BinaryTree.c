@@ -175,6 +175,10 @@ int diameterOfTree(struct BinaryTreeNode *root){
 
 }
 
+struct BinaryTreeNode *LCA(struct BinaryTreeNode *root, struct BinaryTreeNode *a, struct BinaryTreeNode *b){
+
+}
+
 int main(){
  struct BinaryTreeNode *root = newNode(1);
  
