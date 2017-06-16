@@ -208,7 +208,7 @@ int hasPathSum(struct BinaryTreeNode *root, int sum){
   return sum==0;
  
  sum = sum - root->data;
- return (hasPathSum(root->left, sum) || hasPathSum(root->right, sum));
+ return (sum==0 || hasPathSum(root->left, sum) || hasPathSum(root->right, sum));
 }
 
 int arr[10];
@@ -268,7 +268,7 @@ int main(){
  /*deleteANode(root, root->left->right);
  levelOrder(root);*/
  /*printAllPaths(root, 0);*/
- printf("Does this sum exist in tree: %d\n", hasPathSum(root, 10));
+ printf("Does this sum exist in tree: %d\n", hasPathSum(root, 4));
  
  return 0;
 }
