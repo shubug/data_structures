@@ -135,9 +135,9 @@ void inOrderIter(struct BinaryTreeNode *root){
  return ;
 }
 
-void levelOrder(struct BinaryTreeNode *root){
+struct BinaryTreeNode *levelOrder(struct BinaryTreeNode *root){
  if(!root)
-  return ;
+  return NULL;
  struct Queue *Q = createQueue(10);
  struct BinaryTreeNode *temp = NULL;
 
@@ -152,6 +152,7 @@ void levelOrder(struct BinaryTreeNode *root){
    enqueue(Q, temp->right);
  }
  printf("\n");
+ return temp;
 }
 
 int heightOfTree(struct BinaryTreeNode *root){
@@ -167,8 +168,31 @@ int heightOfTree(struct BinaryTreeNode *root){
   return 1 + right;
 }
 
+int deleteDeepestNode(struct BinaryTreeNode *root, struct BinaryTreeNode *deepest){
+ if(!root)
+  return 0;
+ if(root->left == deepest){
+  root->left = NULL;
+  return 1;
+ }
+ if(root->right == deepest){
+  root->right = NULL;
+  return 1;
+ }
+ if(!deleteDeepestNode(root->left, deepest))
+  return deleteDeepestNode(root->right, deepest);
+
+ return 1;
+}
+
 void deleteANode(struct BinaryTreeNode *root, struct BinaryTreeNode *node){
+ //Find the deepest node of the tree 
+ struct BinaryTreeNode *deepest = levelOrder(root);
+ node->data = deepest->data;
  
+ //Now delete the deepest node of the tree, as we have already copied the data of deepest node to the node to be deleted
+ deleteDeepestNode(root, deepest); //Go through any traversal, find if either the left or right child of that node is the deepest node, if yes then point the child pointer to NULL 
+ return ;
 }
 
 int diameterOfTree(struct BinaryTreeNode *root){
