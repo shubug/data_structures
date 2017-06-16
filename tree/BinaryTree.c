@@ -196,15 +196,44 @@ void deleteANode(struct BinaryTreeNode *root, struct BinaryTreeNode *node){
 }
 
 int diameterOfTree(struct BinaryTreeNode *root){
-
+ return 1;
 }
 
 struct BinaryTreeNode *LCA(struct BinaryTreeNode *root, struct BinaryTreeNode *a, struct BinaryTreeNode *b){
-
+ return NULL;
 }
 
 int hasPathSum(struct BinaryTreeNode *root, int sum){
+ return 1;
+}
 
+int arr[10];
+
+void printArray(int arr[], int len){
+ if(len == 0)
+  return ;
+ for(int i=0; i<len; i++)
+  printf("%d->", arr[i]);
+ 
+ printf("\n");
+ return ;
+}
+
+void printAllPaths(struct BinaryTreeNode *root, int i){
+ if(!root)
+  return ;
+ arr[i] = root->data;
+ i++;
+
+ if(!(root->left) && !(root->right)) 
+  printArray(arr, i);
+ else{
+  if(root->left)
+   printAllPaths(root->left, i);
+  if(root->right)
+   printAllPaths(root->right, i);
+ }
+ return ;
 }
 
 int main(){
@@ -232,8 +261,9 @@ int main(){
  //inOrderIter(root);
  //levelOrder(root);
  /*printf("Height of the above tree is: %d\n", heightOfTree(root));*/
- deleteANode(root, root->left->right);
+ /*deleteANode(root, root->left->right);*/
  levelOrder(root);
+ printAllPaths(root, 0);
  
  return 0;
 }
