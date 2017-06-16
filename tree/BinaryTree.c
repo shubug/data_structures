@@ -204,7 +204,11 @@ struct BinaryTreeNode *LCA(struct BinaryTreeNode *root, struct BinaryTreeNode *a
 }
 
 int hasPathSum(struct BinaryTreeNode *root, int sum){
- return 1;
+ if(!root)
+  return sum==0;
+ 
+ sum = sum - root->data;
+ return (hasPathSum(root->left, sum) || hasPathSum(root->right, sum));
 }
 
 int arr[10];
@@ -261,9 +265,10 @@ int main(){
  //inOrderIter(root);
  //levelOrder(root);
  /*printf("Height of the above tree is: %d\n", heightOfTree(root));*/
- /*deleteANode(root, root->left->right);*/
- levelOrder(root);
- printAllPaths(root, 0);
+ /*deleteANode(root, root->left->right);
+ levelOrder(root);*/
+ /*printAllPaths(root, 0);*/
+ printf("Does this sum exist in tree: %d\n", hasPathSum(root, 10));
  
  return 0;
 }
