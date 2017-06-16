@@ -200,7 +200,17 @@ int diameterOfTree(struct BinaryTreeNode *root){
 }
 
 struct BinaryTreeNode *LCA(struct BinaryTreeNode *root, struct BinaryTreeNode *a, struct BinaryTreeNode *b){
- return NULL;
+ if(!root)
+  return NULL;
+ if(root == a || root == b)
+  return root;
+ 
+ struct BinaryTreeNode *left = LCA(root->left, a, b);
+ struct BinaryTreeNode *right = LCA(root->right, a, b);
+  
+ if(left && right)
+  return root;
+ return left?left:right;
 }
 
 int hasPathSum(struct BinaryTreeNode *root, int sum){
@@ -212,7 +222,6 @@ int hasPathSum(struct BinaryTreeNode *root, int sum){
 }
 
 int arr[10];
-
 void printArray(int arr[], int len){
  if(len == 0)
   return ;
@@ -241,8 +250,12 @@ void printAllPaths(struct BinaryTreeNode *root, int i){
 }
 
 int main(){
+ struct BinaryTreeNode *up = newNode(0); //Just for LCA function
  struct BinaryTreeNode *root = newNode(1);
  
+ up->left = root;
+ up->right = newNode(8); 
+
  root->left = newNode(2);
  root->right = newNode(3);
  root->left->left = newNode(4);
@@ -268,7 +281,8 @@ int main(){
  /*deleteANode(root, root->left->right);
  levelOrder(root);*/
  /*printAllPaths(root, 0);*/
- printf("Does this sum exist in tree: %d\n", hasPathSum(root, 4));
- 
+ /*printf("Does this sum exist in tree: %d\n", hasPathSum(root, 4));*/
+ printf("LCA Node data: %d\n", (LCA(up, root->left->right, up->right))->data);
+  
  return 0;
 }
