@@ -195,7 +195,7 @@ void deleteANode(struct BinaryTreeNode *root, struct BinaryTreeNode *node){
  return ;
 }
 
-int diameterOfTree(struct BinaryTreeNode *root){
+int diameterOfTree(struct BinaryTreeNode *root, int *diameter){
  return 1;
 }
 
@@ -282,11 +282,13 @@ int main(){
  levelOrder(root);*/
  /*printAllPaths(root, 0);*/
  /*printf("Does this sum exist in tree: %d\n", hasPathSum(root, 4));*/
- struct BinaryTreeNode *temp = LCA(up, root->left->right, up->right);
+ /*struct BinaryTreeNode *temp = LCA(up, root->left->right, up->right);
  if(temp)
   printf("LCA Node data: %d\n", temp->data);
  else
   printf("Both Nodes doesn't exits in the tree...so can't calculate their LCA\n");
-  
+ */
+ int diameter = 0;
+ printf("Diameter of tree is: %d\n", diameterOfTree(root, &diameter));
  return 0;
 }
