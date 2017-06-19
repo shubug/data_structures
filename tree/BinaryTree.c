@@ -195,8 +195,17 @@ void deleteANode(struct BinaryTreeNode *root, struct BinaryTreeNode *node){
  return ;
 }
 
+/*Diameter of a tree is the maximum distance(longest path b/w 2 leaf nodes) between any 2 nodes..this may not include the root node itself (probably in case of skewed trees)*/
 int diameterOfTree(struct BinaryTreeNode *root, int *diameter){
- return 1;
+ if(!root)
+  return 0;
+ int left, right;
+ left = diameterOfTree(root->left, diameter);
+ right = diameterOfTree(root->right, diameter);
+ if(left + right + 1 > *diameter)
+  *diameter = left+right+1;
+ 
+ return left>right?left+1:right+1;
 }
 
 struct BinaryTreeNode *LCA(struct BinaryTreeNode *root, struct BinaryTreeNode *a, struct BinaryTreeNode *b){
@@ -249,6 +258,10 @@ void printAllPaths(struct BinaryTreeNode *root, int i){
  return ;
 }
 
+int levelWithMaxSum(struct BinaryTreeNode *root){
+ return 1;
+}
+
 int main(){
  struct BinaryTreeNode *up = newNode(0); //Just for LCA function
  struct BinaryTreeNode *root = newNode(1);
@@ -263,6 +276,8 @@ int main(){
  
  root->right->left = newNode(6);
  root->right->right = newNode(7);
+
+ root->right->right->right = newNode(9); //Specifically for Diameter calculation, can remove it for all other functions
  /*
  printPreOrder(root);
  printf("\n"); 
@@ -289,6 +304,7 @@ int main(){
   printf("Both Nodes doesn't exits in the tree...so can't calculate their LCA\n");
  */
  int diameter = 0;
- printf("Diameter of tree is: %d\n", diameterOfTree(root, &diameter));
+ diameterOfTree(root, &diameter);
+ printf("Diameter of tree is: %d\n", diameter);
  return 0;
 }
