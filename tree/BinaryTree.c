@@ -259,7 +259,60 @@ void printAllPaths(struct BinaryTreeNode *root, int i){
 }
 
 int levelWithMaxSum(struct BinaryTreeNode *root){
- return 1;
+ if(!root)
+  return 0;
+ 
+ int current_sum=0, max_sum=0;
+ struct BinaryTreeNode *temp;
+ struct Queue *Q = createQueue(10);
+ 
+ enqueue(Q, root);
+ enqueue(Q, NULL);
+ while(!isQueueEmpty(Q)){
+  temp = dequeue(Q);
+  if(!temp){
+   //Means we have hit the end of one level
+   if(!isQueueEmpty(Q))
+    enqueue(Q, NULL);
+   if(current_sum > max_sum)
+    max_sum = current_sum;
+   current_sum = 0;
+  }
+  else{
+   current_sum += temp->data;
+   if(temp->left)
+    enqueue(Q, temp->left);
+   if(temp->right)
+    enqueue(Q, temp->right);
+  }
+ }
+ return max_sum;
+}
+
+int search(int inOrder[], int start, int end, int data){
+ for(int i=start; i<=end; i++)
+  if(inOrder[i]==data)
+   return i;
+
+ return -1;
+}
+
+struct BinaryTreeNode *createTree(int inOrder[], int preOrder[], int start, int end){
+ static int preIndex = 0;
+ if(start > end)
+  return NULL;
+ struct BinaryTreeNode *newNode = malloc(sizeof(struct BinaryTreeNode));
+ int data = preOrder[preIndex++];
+ newNode->data = data;
+ newNode->left = newNode->right = NULL;
+ if(start == end)
+  return newNode;
+ //search for this preorder index in inOrder array
+ int inIndex = search(inOrder, start, end, data);
+ newNode->left = createTree(inOrder, preOrder, start, inIndex-1); 
+ newNode->right = createTree(inOrder, preOrder, inIndex+1, end);
+ 
+ return newNode;
 }
 
 int main(){
@@ -303,8 +356,15 @@ int main(){
  else
   printf("Both Nodes doesn't exits in the tree...so can't calculate their LCA\n");
  */
- int diameter = 0;
+ /*int diameter = 0;
  diameterOfTree(root, &diameter);
  printf("Diameter of tree is: %d\n", diameter);
+ */
+ /*printf("Level with Maximum is level: %d\n", levelWithMaxSum(up));*/
+ int inOrder[] = {4, 2, 5, 1, 6, 3, 7};
+ int preOrder[] = {1, 2, 4, 5, 3, 6, 7};
+  
+ levelOrder(createTree(inOrder, preOrder, 0 ,6));
+
  return 0;
 }
