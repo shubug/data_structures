@@ -315,6 +315,17 @@ struct BinaryTreeNode *createTree(int inOrder[], int preOrder[], int start, int 
  return newNode;
 }
 
+void mirrorTree(struct BinaryTreeNode *root){
+ if(!root)
+  return ;
+ mirrorTree(root->left);
+ mirrorTree(root->right);
+ 
+ struct BinaryTreeNode *temp = root->left;
+ root->left = root->right;
+ root->right = temp;
+}
+
 int main(){
  struct BinaryTreeNode *up = newNode(0); //Just for LCA function
  struct BinaryTreeNode *root = newNode(1);
@@ -364,7 +375,9 @@ int main(){
  int inOrder[] = {4, 2, 5, 1, 6, 3, 7};
  int preOrder[] = {1, 2, 4, 5, 3, 6, 7};
   
- levelOrder(createTree(inOrder, preOrder, 0 ,6));
+ /*levelOrder(createTree(inOrder, preOrder, 0 ,6));*/
+ mirrorTree(root);
+ levelOrder(root);
 
  return 0;
 }
