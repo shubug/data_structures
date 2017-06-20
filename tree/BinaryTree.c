@@ -326,6 +326,14 @@ void mirrorTree(struct BinaryTreeNode *root){
  root->right = temp;
 }
 
+void zigzagTraversal(struct BinaryTreeNode *root){
+ if(!root)
+  return ;
+ int left_to_right = 1;
+ push(root)
+ //Not possible here as we will need 2 stacks for that
+}
+
 int main(){
  struct BinaryTreeNode *up = newNode(0); //Just for LCA function
  struct BinaryTreeNode *root = newNode(1);
@@ -376,8 +384,9 @@ int main(){
  int preOrder[] = {1, 2, 4, 5, 3, 6, 7};
   
  /*levelOrder(createTree(inOrder, preOrder, 0 ,6));*/
- mirrorTree(root);
- levelOrder(root);
+ /*mirrorTree(root);
+ levelOrder(root);*/
+ //zigzagTraversal(root);
 
  return 0;
 }
