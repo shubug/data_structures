@@ -1,3 +1,5 @@
+// Rotate the matrix elements in clockwise direction by 1. Similar to Spiral print of matrix, here instead of printing the element we replace it by previous element that is stored in temp variable
+
 #include <stdio.h>
 
 void printMatrix(int mat[4][4], int m, int n){
